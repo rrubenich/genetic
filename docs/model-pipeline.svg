@@ -139,12 +139,12 @@
 <text x="72" y="1555" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#59636e" font-weight="600" text-anchor="start" >publish.py</text>
 <text x="72" y="1581" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Share the model with a model card.</text>
 <text x="400" y="1525" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">write_card()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">README.md from the config + eval results</tspan></text>
-<text x="400" y="1548" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">push()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">model, tokenizer, card → Hugging Face Hub</tspan></text>
+<text x="400" y="1548" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">push()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">model, tokenizer, card → huggingface.co/rubenich/genetic-dna-tiny</tspan></text>
 <rect x="1040" y="1509" width="296" height="104" rx="10" fill="#f6f8fa" stroke="#59636e" stroke-opacity="0.35"/>
 <text x="1056" y="1535" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#59636e" font-weight="700" text-anchor="start" >Hugging Face Hub</text>
-<text x="1056" y="1559" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >USER/genetic-dna-tiny</text>
-<text x="1056" y="1581" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >only with --push</text>
-<text x="1056" y="1603" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >(not pushed yet)</text>
+<text x="1056" y="1559" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >rubenich/genetic-dna-tiny</text>
+<text x="1056" y="1581" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >model, tokenizer, card</text>
+<text x="1056" y="1603" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >published ✓</text>
 <text x="1040" y="1641" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.publish --push</text>
 <rect x="40" y="1681" width="650" height="92" rx="12" fill="#f6f8fa" stroke="#d1d9e0"/>
 <text x="64" y="1711" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#1f2328" font-weight="700" text-anchor="start" >Shared configuration</text>

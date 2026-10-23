@@ -36,7 +36,7 @@ Built to learn. Not for clinical use.
 - Model: small Llama-style decoder (`LlamaForCausalLM`, ~6M params: hidden 256, 6 layers, 8 heads, intermediate 1024), causal LM objective. Trained locally on a MacBook (MPS) with the `Trainer`.
 - Evaluation: bits per base (`loss / ln 2`; uniform = 2.0) compared against k-th order Markov chain baselines.
 - Usage: zero-shot variant scoring via log-likelihood ratio `log P(alt) - log P(ref)` on an hg19 window (pyfaidx needs uncompressed FASTA).
-- Publish: code on GitHub, model and tokenizer on the Hugging Face Hub (`push_to_hub`).
+- Publish: code on GitHub (https://github.com/rrubenich/genetic), model and tokenizer on the Hugging Face Hub at https://huggingface.co/rubenich/genetic-dna-tiny (`python -m genetic_model.publish --push`). `--model` in `score_variant` accepts a local dir or this Hub id.
 
 ## Roadmap (model/)
 
@@ -47,7 +47,7 @@ Built to learn. Not for clinical use.
 5. [x] Model + training: `src/genetic_model/train.py`, `configs/tiny.yaml`
 6. [x] Evaluation vs Markov baselines: `src/genetic_model/evaluate.py`
 7. [x] Variant scoring: `src/genetic_model/score_variant.py`
-8. [ ] Hugging Face Hub + model card, results in README ← next
+8. [x] Hugging Face Hub + model card, results in README
 
 ## Input format notes (for api/ later)
 

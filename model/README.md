@@ -2,6 +2,28 @@
 
 A small DNA language model trained from scratch on the human reference genome (GRCh37/hg19) with Hugging Face.
 
+🤗 Published at **[rubenich/genetic-dna-tiny](https://huggingface.co/rubenich/genetic-dna-tiny)** (model, tokenizer, model card and evaluation results).
+
+## Use the published model
+
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+tok = AutoTokenizer.from_pretrained("rubenich/genetic-dna-tiny")
+model = AutoModelForCausalLM.from_pretrained("rubenich/genetic-dna-tiny")
+
+ids = tok("ACGTTGCA", return_tensors="pt")["input_ids"]
+with torch.no_grad():
+    logits = model(input_ids=ids).logits  # next-base predictions, shape (1, 10, 16)
+```
+
+Score a single-base change straight from the Hub (needs the hg19 FASTA in `data/hg19/`, see [`data/README.md`](data/README.md)):
+
+```bash
+uv run python -m genetic_model.score_variant chr22 30000000 A G --model rubenich/genetic-dna-tiny
+```
+
 ## Roadmap
 
 - [x] Project setup (`uv`, dependencies)
@@ -11,7 +33,7 @@ A small DNA language model trained from scratch on the human reference genome (G
 - [x] Llama-style model + training loop (`transformers` `Trainer`)
 - [x] Evaluation: bits per base vs. Markov baselines
 - [x] Zero-shot variant scoring (log-likelihood ratio)
-- [ ] Publish to the Hugging Face Hub
+- [x] Publish to the Hugging Face Hub ([rubenich/genetic-dna-tiny](https://huggingface.co/rubenich/genetic-dna-tiny))
 
 ## Pipeline
 
