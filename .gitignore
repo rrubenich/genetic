@@ -1,0 +1,17 @@
+# Personal data
+*.csv.gz
+*dados_brutos*
+*.vcf
+*.vcf.gz
+
+# Env and regen data
+.venv/
+model/data/*
+!model/data/README.md
+model/runs/
+*.fa
+*.fa.gz
+*.fai
+*.safetensors
+__pycache__/
+.DS_Store
