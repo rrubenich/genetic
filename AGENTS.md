@@ -45,8 +45,8 @@ Built to learn. Not for clinical use.
 3. [x] Tokenizer: `src/genetic_model/tokenizer.py` + `tests/test_tokenizer.py`
 4. [x] Dataset: `src/genetic_model/data.py`
 5. [x] Model + training: `src/genetic_model/train.py`, `configs/tiny.yaml`
-6. [ ] Evaluation vs Markov baselines: `src/genetic_model/evaluate.py` ← next
-7. [ ] Variant scoring: `src/genetic_model/score_variant.py`
+6. [x] Evaluation vs Markov baselines: `src/genetic_model/evaluate.py`
+7. [ ] Variant scoring: `src/genetic_model/score_variant.py` ← next
 8. [ ] Hugging Face Hub + model card, results in README
 
 ## Input format notes (for api/ later)
@@ -65,5 +65,6 @@ uv sync
 uv run python -m genetic_model.tokenizer   # runs/tokenizer/
 uv run python -m genetic_model.data        # data/processed/ (train: chr22 both strands, validation: chr21)
 uv run python -m genetic_model.train       # runs/tiny/ (~70 min on an M1 Pro; --max-steps 20 for a smoke test)
+uv run python -m genetic_model.evaluate    # bits/base vs Markov baselines -> runs/tiny/eval_results.json
 uv run pytest
 ```
