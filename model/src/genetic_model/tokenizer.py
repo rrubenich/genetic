@@ -1,5 +1,13 @@
+import sys
+from pathlib import Path
+
 from tokenizers import Regex, Tokenizer, decoders, models, normalizers, pre_tokenizers, processors
+from transformers import PreTrainedTokenizerFast
+
 from .vocabulary import SPECIAL_TOKENS, VOCAB
+
+# model/runs/tokenizer, no matter where this is run from
+DEFAULT_OUT_DIR = Path(__file__).resolve().parents[2] / "runs" / "tokenizer"
 
 
 def build_tokenizer() -> Tokenizer:
@@ -30,3 +38,22 @@ def build_tokenizer() -> Tokenizer:
     tok.decoder = decoders.Fuse()
 
     return tok
+
+
+def build_hf_tokenizer() -> PreTrainedTokenizerFast:
+    # The transformers wrapper adds padding, batching, save_pretrained and
+    # AutoTokenizer support. It needs to be told which token plays which role.
+    return PreTrainedTokenizerFast(
+        tokenizer_object=build_tokenizer(),
+        pad_token="[PAD]",
+        unk_token="[UNK]",
+        bos_token="[BOS]",
+        eos_token="[EOS]",
+    )
+
+
+if __name__ == "__main__":
+    # Usage: python -m genetic_model.tokenizer [out_dir]   (default: runs/tokenizer)
+    out_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_OUT_DIR
+    build_hf_tokenizer().save_pretrained(out_dir)
+    print(f"Saved tokenizer to {out_dir}")

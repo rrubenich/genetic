@@ -42,8 +42,8 @@ Built to learn. Not for clinical use.
 
 1. [x] Project setup and structure
 2. [x] Download script (`scripts/download_hg19.sh`)
-3. [ ] Tokenizer: `src/genetic_model/tokenizer.py` + `tests/test_tokenizer.py` ← next
-4. [ ] Dataset: `src/genetic_model/data.py`
+3. [x] Tokenizer: `src/genetic_model/tokenizer.py` + `tests/test_tokenizer.py`
+4. [ ] Dataset: `src/genetic_model/data.py` ← next
 5. [ ] Model + training: `src/genetic_model/train.py`, `configs/tiny.yaml`
 6. [ ] Evaluation vs Markov baselines: `src/genetic_model/evaluate.py`
 7. [ ] Variant scoring: `src/genetic_model/score_variant.py`

@@ -2,8 +2,9 @@ import random
 
 import pytest
 from tokenizers import Tokenizer
+from transformers import AutoTokenizer
 
-from genetic_model.tokenizer import build_tokenizer
+from genetic_model.tokenizer import build_hf_tokenizer, build_tokenizer
 from genetic_model.vocabulary import BASES, SPECIAL_TOKENS, VOCAB
 
 
@@ -92,3 +93,40 @@ def test_serialization_round_trip(tok):
     reloaded = Tokenizer.from_str(tok.to_str())
     assert reloaded.get_vocab() == tok.get_vocab()
     assert reloaded.encode("acgtR").ids == tok.encode("acgtR").ids
+
+
+# transformers wrapper: what the dataset and Trainer will actually use.
+
+@pytest.fixture(scope="module")
+def hf_tok():
+    return build_hf_tokenizer()
+
+
+def test_hf_special_token_ids(hf_tok):
+    assert hf_tok.pad_token_id == VOCAB["[PAD]"] == 0
+    assert hf_tok.unk_token_id == VOCAB["[UNK]"]
+    assert hf_tok.bos_token_id == VOCAB["[BOS]"]
+    assert hf_tok.eos_token_id == VOCAB["[EOS]"]
+    assert len(hf_tok) == 9
+
+
+def test_hf_matches_raw_tokenizer(hf_tok, tok):
+    assert hf_tok("acgtR")["input_ids"] == tok.encode("acgtR").ids
+
+
+def test_hf_padding(hf_tok):
+    batch = hf_tok(["ACG", "A"], padding=True)
+    assert batch["input_ids"] == [[2, 4, 5, 6, 3], [2, 4, 3, 0, 0]]
+    assert batch["attention_mask"] == [[1, 1, 1, 1, 1], [1, 1, 1, 0, 0]]
+
+
+def test_hf_decode_skips_special_tokens(hf_tok):
+    assert hf_tok.decode(hf_tok("ACGT")["input_ids"], skip_special_tokens=True) == "ACGT"
+
+
+def test_save_and_reload_with_autotokenizer(hf_tok, tmp_path):
+    hf_tok.save_pretrained(tmp_path)
+    reloaded = AutoTokenizer.from_pretrained(tmp_path)
+    assert reloaded.get_vocab() == hf_tok.get_vocab()
+    assert reloaded.pad_token_id == 0
+    assert reloaded(["acgtR", "A"], padding=True)["input_ids"] == hf_tok(["acgtR", "A"], padding=True)["input_ids"]
