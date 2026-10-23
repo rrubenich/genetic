@@ -66,6 +66,6 @@ uv run python -m genetic_model.tokenizer   # runs/tokenizer/
 uv run python -m genetic_model.data        # data/processed/ (train: chr22 both strands, validation: chr21)
 uv run python -m genetic_model.train       # runs/tiny/ (~70 min on an M1 Pro; --max-steps 20 for a smoke test)
 uv run python -m genetic_model.evaluate    # bits/base vs Markov baselines -> runs/tiny/eval_results.json
-uv run python -m genetic_model.score_variant chr22 30000000 C T   # LLR of a single-base change (GRCh37, + strand)
+uv run python -m genetic_model.score_variant chr22 30000000 A G   # LLR of a single-base change (GRCh37, + strand)
 uv run pytest
 ```

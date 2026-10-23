@@ -8,7 +8,7 @@ allele makes the sequence look less like the genome the model learned from. This
 learning exercise: a score is not a clinical interpretation of any variant.
 
 Usage: python -m genetic_model.score_variant CHROM POS REF ALT [--model runs/tiny]
-       e.g. python -m genetic_model.score_variant chr22 30000000 C T
+       e.g. python -m genetic_model.score_variant chr22 30000000 A G
 Positions are 1-based on GRCh37/hg19, alleles on the + strand.
 """
 
