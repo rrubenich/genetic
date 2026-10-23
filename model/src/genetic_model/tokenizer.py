@@ -4,10 +4,11 @@ from pathlib import Path
 from tokenizers import Regex, Tokenizer, decoders, models, normalizers, pre_tokenizers, processors
 from transformers import PreTrainedTokenizerFast
 
+from .config import MODEL_DIR
 from .vocabulary import SPECIAL_TOKENS, VOCAB
 
 # model/runs/tokenizer, no matter where this is run from
-DEFAULT_OUT_DIR = Path(__file__).resolve().parents[2] / "runs" / "tokenizer"
+DEFAULT_OUT_DIR = MODEL_DIR / "runs" / "tokenizer"
 
 
 def build_tokenizer() -> Tokenizer:

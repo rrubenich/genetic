@@ -43,8 +43,8 @@ Built to learn. Not for clinical use.
 1. [x] Project setup and structure
 2. [x] Download script (`scripts/download_hg19.sh`)
 3. [x] Tokenizer: `src/genetic_model/tokenizer.py` + `tests/test_tokenizer.py`
-4. [ ] Dataset: `src/genetic_model/data.py` ← next
-5. [ ] Model + training: `src/genetic_model/train.py`, `configs/tiny.yaml`
+4. [x] Dataset: `src/genetic_model/data.py`
+5. [ ] Model + training: `src/genetic_model/train.py`, `configs/tiny.yaml` ← next
 6. [ ] Evaluation vs Markov baselines: `src/genetic_model/evaluate.py`
 7. [ ] Variant scoring: `src/genetic_model/score_variant.py`
 8. [ ] Hugging Face Hub + model card, results in README
@@ -62,6 +62,7 @@ Genera raw data export: gzipped CSV, header `RSID,CHROMOSOME,POSITION,RESULT`, ~
 ```bash
 uv sync
 ./scripts/download_hg19.sh            # chr21, chr22 into data/hg19/
-uv run python -m genetic_model.tokenizer
+uv run python -m genetic_model.tokenizer   # runs/tokenizer/
+uv run python -m genetic_model.data        # data/processed/ (train: chr22 both strands, validation: chr21)
 uv run pytest
 ```
