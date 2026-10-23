@@ -8,7 +8,7 @@ A small DNA language model trained from scratch on the human reference genome (G
 - [x] Download reference data (`scripts/`)
 - [x] Character-level tokenizer (`tokenizers`)
 - [x] Dataset: FASTA → windows → tokens (`datasets`)
-- [ ] Llama-style model + training loop (`transformers` `Trainer`)
+- [x] Llama-style model + training loop (`transformers` `Trainer`)
 - [ ] Evaluation: bits per base vs. Markov baselines
 - [ ] Zero-shot variant scoring (log-likelihood ratio)
 - [ ] Publish to the Hugging Face Hub
