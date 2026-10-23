@@ -1,4 +1,4 @@
-# genetic / model
+# genetic-dna / model
 
 A small DNA language model trained from scratch on the human reference genome (GRCh37/hg19) with Hugging Face.
 

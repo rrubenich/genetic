@@ -1,4 +1,4 @@
-# genetic / api
+# genetic-dna / api
 
 🔜 **Planned.**
 

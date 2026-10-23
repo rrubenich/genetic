@@ -1,4 +1,4 @@
-# genetic
+# genetic-dna
 
 Upload a genetic test, get insights from open sources.
 

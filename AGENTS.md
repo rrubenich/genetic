@@ -4,7 +4,7 @@ Context for Claude Code when working in this repository.
 
 ## Project
 
-**genetic**: upload a genetic test, get insights from open sources.
+**genetic-dna**: upload a genetic test, get insights from open sources.
 Monorepo with three parts:
 
 - `model/`: small DNA language model trained from scratch with Hugging Face (current focus)
@@ -36,7 +36,7 @@ Built to learn. Not for clinical use.
 - Model: small Llama-style decoder (`LlamaForCausalLM`, ~6M params: hidden 256, 6 layers, 8 heads, intermediate 1024), causal LM objective. Trained locally on a MacBook (MPS) with the `Trainer`.
 - Evaluation: bits per base (`loss / ln 2`; uniform = 2.0) compared against k-th order Markov chain baselines.
 - Usage: zero-shot variant scoring via log-likelihood ratio `log P(alt) - log P(ref)` on an hg19 window (pyfaidx needs uncompressed FASTA).
-- Publish: code on GitHub (https://github.com/rrubenich/genetic), model and tokenizer on the Hugging Face Hub at https://huggingface.co/rubenich/genetic-dna-tiny (`python -m genetic_model.publish --push`). `--model` in `score_variant` accepts a local dir or this Hub id.
+- Publish: code on GitHub (https://github.com/rrubenich/genetic-dna), model and tokenizer on the Hugging Face Hub at https://huggingface.co/rubenich/genetic-dna-tiny (`python -m genetic_model.publish --push`). `--model` in `score_variant` accepts a local dir or this Hub id.
 
 ## Roadmap (model/)
 

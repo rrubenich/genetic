@@ -75,7 +75,8 @@ with torch.no_grad():
 ```
 
 Zero-shot variant scoring compares `log P(alt window) - log P(ref window)` on an hg19
-window around a single-base change; see `genetic_model.score_variant` in the source repo.
+window around a single-base change; see `genetic_model.score_variant` in the
+source repo: https://github.com/rrubenich/genetic-dna
 
 ## Limitations
 

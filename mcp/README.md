@@ -1,4 +1,4 @@
-# genetic / mcp
+# genetic-dna / mcp
 
 🔜 **Planned.**
 

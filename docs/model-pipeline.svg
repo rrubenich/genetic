@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1813" viewBox="0 0 1400 1813" role="img" aria-label="Pipeline of the genetic DNA language model">
 <rect width="1400" height="1813" fill="#ffffff"/>
 <text x="40" y="68" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" fill="#1f2328" font-weight="700" text-anchor="start" >How the DNA language model is built</text>
-<text x="40" y="98" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#59636e" font-weight="normal" text-anchor="start" >genetic / model — from the hg19 reference genome to a scored variant. Every command runs from model/ with uv run.</text>
+<text x="40" y="98" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#59636e" font-weight="normal" text-anchor="start" >genetic-dna / model — from the hg19 reference genome to a scored variant. Every command runs from model/ with uv run.</text>
 <rect x="40" y="136" width="1320" height="166" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
 <rect x="40" y="136" width="8" height="166" rx="4" fill="#0969da"/>
 <circle cx="86" cy="166" r="14" fill="#0969da"/>
