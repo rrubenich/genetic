@@ -5,7 +5,7 @@ A small DNA language model trained from scratch on the human reference genome (G
 ## Roadmap
 
 - [x] Project setup (`uv`, dependencies)
-- [ ] Download reference data (`scripts/`)
+- [x] Download reference data (`scripts/`)
 - [ ] Character-level tokenizer (`tokenizers`)
 - [ ] Dataset: FASTA → windows → tokens (`datasets`)
 - [ ] Llama-style model + training loop (`transformers` `Trainer`)

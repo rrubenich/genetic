@@ -20,12 +20,14 @@ SHA-256 of the downloaded archives (before `gunzip`):
 
 | File | SHA-256 |
 |---|---|
+| `chr20.fa.gz` | `f15c27115a944c1a3cdc6fd2758daa1b12ef293a25f0cea56e899cebce9f6b82` |
 | `chr21.fa.gz` | `1953ac4ea94b65885bb619bea88a9a0c5c3ad7a98302b3de71be319995c6f8e7` |
 | `chr22.fa.gz` | `4a5a0049b23232b163e575bf506b8af86e7d563fa9990311fb9fa3346d6865ec` |
+| `chrX.fa.gz` | `1e9bd71f702f4658b33370c45ace178588ee9ee9623f0ff593b6222dc4d8e643` |
 
 ## Downloading
 
-The data is fetched with [`scripts/download_hg19.sh`](../scripts/download_hg19.sh). It downloads each chromosome from the UCSC directory above into `data/hg19/`, uncompresses it to `<chrom>.fa` (so pyfaidx can read random regions), and skips chromosomes that already have a `.fa` file. Paths resolve relative to `model/`, so it can be run from any directory:
+The data is fetched with [`scripts/download_hg19.sh`](../scripts/download_hg19.sh). It downloads each chromosome from the UCSC directory above into `data/hg19/`, verifies the archive against the SHA-256 table above (for chromosomes listed there), then uncompresses it to `<chrom>.fa` so pyfaidx can read random regions. Chromosomes that already have a `.fa` are skipped, and an existing `.fa.gz` is reused instead of downloaded again. Paths resolve relative to `model/`, so it can be run from any directory:
 
 ```bash
 scripts/download_hg19.sh              # default: chr21 chr22
