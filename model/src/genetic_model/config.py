@@ -16,3 +16,9 @@ def resolve(path: str | Path) -> Path:
     """Resolve a config path relative to model/."""
     path = Path(path)
     return path if path.is_absolute() else MODEL_DIR / path
+
+
+def model_source(name: str) -> str:
+    """A local model directory (relative to model/) if it exists, else a Hugging Face Hub id."""
+    local = resolve(name)
+    return str(local) if local.is_dir() else name

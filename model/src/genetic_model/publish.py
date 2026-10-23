@@ -1,7 +1,7 @@
 """Hugging Face Hub: write a model card for a trained model and (optionally) push it.
 
 Usage: python -m genetic_model.publish [--model runs/tiny]                  # writes README.md only
-       python -m genetic_model.publish --repo-id USER/genetic-dna-tiny --push
+       python -m genetic_model.publish --push   # https://huggingface.co/rubenich/genetic-dna-tiny
 Pushing needs a token: run `uv run hf auth login` first.
 """
 
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="runs/tiny")
     parser.add_argument("--config", default=DEFAULT_CONFIG)
-    parser.add_argument("--repo-id", default="genetic-dna-tiny", help="USER/NAME on the Hub")
+    parser.add_argument("--repo-id", default="rubenich/genetic-dna-tiny", help="USER/NAME on the Hub")
     parser.add_argument("--push", action="store_true", help="upload to the Hub (default: only write the card)")
     parser.add_argument("--private", action="store_true")
     cli = parser.parse_args()

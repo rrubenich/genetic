@@ -9,6 +9,7 @@ learning exercise: a score is not a clinical interpretation of any variant.
 
 Usage: python -m genetic_model.score_variant CHROM POS REF ALT [--model runs/tiny]
        e.g. python -m genetic_model.score_variant chr22 30000000 A G
+            python -m genetic_model.score_variant chr22 30000000 A G --model rubenich/genetic-dna-tiny
 Positions are 1-based on GRCh37/hg19, alleles on the + strand.
 """
 
@@ -20,7 +21,7 @@ import torch
 from pyfaidx import Fasta
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from .config import DEFAULT_CONFIG, load_config, resolve
+from .config import DEFAULT_CONFIG, load_config, model_source, resolve
 from .evaluate import default_device
 
 
@@ -92,12 +93,12 @@ if __name__ == "__main__":
     parser.add_argument("pos", type=int)
     parser.add_argument("ref")
     parser.add_argument("alt")
-    parser.add_argument("--model", default="runs/tiny")
+    parser.add_argument("--model", default="runs/tiny", help="local directory or Hugging Face Hub id")
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     cli = parser.parse_args()
 
     config = load_config(cli.config)
-    model_dir = resolve(cli.model)
+    model_dir = model_source(cli.model)
     model = AutoModelForCausalLM.from_pretrained(model_dir).to(default_device()).eval()
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
     score = score_snv(model, tokenizer, resolve(config["data"]["fasta_dir"]),
