@@ -52,6 +52,7 @@ Built to learn. Not for clinical use.
 ## Input format notes (for api/ later)
 
 Genera raw data export: gzipped CSV, header `RSID,CHROMOSOME,POSITION,RESULT`, ~650k markers, positions in **GRCh37**.
+
 - RESULT: two-letter genotypes (allele order not normalized: `AG` and `GA` both occur), single letters on Y/MT, `II`/`DD`/`ID` for indels, `--` for no-calls.
 - ~4.5k IDs are `chrom:pos` instead of rsIDs, and that position does not match the POSITION column (likely GRCh38); use POSITION.
 - Some rsIDs appear multiple times (different probes); key by `(rsid, chrom, pos)`.
