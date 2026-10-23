@@ -104,9 +104,9 @@
 <text x="400" y="1208" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">metric</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">uniform guess = 2.0 bits, lower is better</tspan></text>
 <rect x="1040" y="1100" width="296" height="104" rx="10" fill="#d9f6f8" stroke="#0a7c86" stroke-opacity="0.35"/>
 <text x="1056" y="1126" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#0a7c86" font-weight="700" text-anchor="start" >eval_results.json</text>
-<text x="1056" y="1150" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >Markov: 1.99 → 1.83 (order 10)</text>
-<text x="1056" y="1172" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >model during training:</text>
-<text x="1056" y="1194" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >1.79 → 1.75 bits/token</text>
+<text x="1056" y="1150" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >model: 1.744 bits/base</text>
+<text x="1056" y="1172" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >best Markov (order 10): 1.831</text>
+<text x="1056" y="1194" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >uniform guess: 2.0</text>
 <text x="1040" y="1245" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.evaluate</text>
 <line x1="700" y1="1265" x2="700" y2="1285" stroke="#59636e" stroke-width="2"/>
 <path d="M694,1281 L700,1289 L706,1281" fill="none" stroke="#59636e" stroke-width="2"/>
@@ -128,7 +128,7 @@
 <text x="1056" y="1383" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >LLR at the variant base</text>
 <text x="1056" y="1405" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >negative = less likely than ref</text>
 <text x="1040" y="1443" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" ></text>
-<text x="72" y="1443" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.score_variant chr22 30000000 C T</text>
+<text x="72" y="1443" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.score_variant chr22 30000000 A G</text>
 <line x1="700" y1="1463" x2="700" y2="1483" stroke="#59636e" stroke-width="2"/>
 <path d="M694,1479 L700,1487 L706,1479" fill="none" stroke="#59636e" stroke-width="2"/>
 <rect x="40" y="1491" width="1320" height="166" rx="12" fill="#ffffff" stroke="#d1d9e0"/>

@@ -38,4 +38,22 @@ uv sync
 
 ## Results
 
-_Coming soon._
+`configs/tiny.yaml`: 6.3M parameters, 4,000 steps (about one pass over chr22, both strands) on an Apple M1 Pro.
+
+Bits per base on chr21, which the model never saw: 35.1M bases in 34,265 windows without `N`, each base predicted from the bases before it in its 1,024 bp window. Lower is better; a uniform guess over A/C/G/T is 2.0.
+
+| Method | Bits per base |
+|---|---|
+| **Model (`runs/tiny`)** | **1.744** |
+| Markov order 10 | 1.831 |
+| Markov order 8 | 1.857 |
+| Markov order 6 | 1.901 |
+| Markov order 4 | 1.926 |
+| Markov order 2 | 1.938 |
+| Markov order 1 | 1.952 |
+| Markov order 0 (base frequencies) | 1.991 |
+| Uniform | 2.000 |
+
+The model beats the best Markov chain by 0.087 bits per base. Validation loss was still falling at the end of training (1.749 → 1.747 bits/token over the last 1,000 steps), so a longer run or more chromosomes would likely help.
+
+Reproduce: `uv run python -m genetic_model.evaluate` (about 6 minutes; writes `runs/tiny/eval_results.json`).
