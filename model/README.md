@@ -13,6 +13,10 @@ A small DNA language model trained from scratch on the human reference genome (G
 - [x] Zero-shot variant scoring (log-likelihood ratio)
 - [ ] Publish to the Hugging Face Hub
 
+## Pipeline
+
+![Model pipeline: download, tokenizer, dataset, training, evaluation, variant scoring, publish](../docs/model-pipeline.svg)
+
 ## Layout
 
 ```

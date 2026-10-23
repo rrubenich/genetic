@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1813" viewBox="0 0 1400 1813" role="img" aria-label="Pipeline of the genetic DNA language model">
+<rect width="1400" height="1813" fill="#ffffff"/>
+<text x="40" y="68" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" fill="#1f2328" font-weight="700" text-anchor="start" >How the DNA language model is built</text>
+<text x="40" y="98" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#59636e" font-weight="normal" text-anchor="start" >genetic / model — from the hg19 reference genome to a scored variant. Every command runs from model/ with uv run.</text>
+<rect x="40" y="136" width="1320" height="166" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="136" width="8" height="166" rx="4" fill="#0969da"/>
+<circle cx="86" cy="166" r="14" fill="#0969da"/>
+<text x="86" y="171" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >1</text>
+<text x="110" y="172" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Download</text>
+<text x="72" y="200" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#0969da" font-weight="600" text-anchor="start" >scripts/download_hg19.sh</text>
+<text x="72" y="226" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Get the human reference genome</text>
+<text x="72" y="246" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >(GRCh37/hg19) from UCSC.</text>
+<text x="400" y="170" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">curl</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">chrN.fa.gz from hgdownload.soe.ucsc.edu</tspan></text>
+<text x="400" y="193" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">expected_sha256()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">verify the archive before unzipping</tspan></text>
+<text x="400" y="216" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">gunzip</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">plain .fa so pyfaidx can read any region</tspan></text>
+<rect x="1040" y="154" width="296" height="104" rx="10" fill="#ddf4ff" stroke="#0969da" stroke-opacity="0.35"/>
+<text x="1056" y="180" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#0969da" font-weight="700" text-anchor="start" >data/hg19/</text>
+<text x="1056" y="204" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >chr21.fa  chr22.fa</text>
+<text x="1056" y="226" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >(+ chr20.fa, chrX.fa)</text>
+<text x="1056" y="248" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >soft-masked: repeats in lowercase</text>
+<text x="1040" y="286" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >./scripts/download_hg19.sh</text>
+<line x1="700" y1="306" x2="700" y2="326" stroke="#59636e" stroke-width="2"/>
+<path d="M694,322 L700,330 L706,322" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="334" width="1320" height="294" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="334" width="8" height="294" rx="4" fill="#8250df"/>
+<circle cx="86" cy="364" r="14" fill="#8250df"/>
+<text x="86" y="369" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >2</text>
+<text x="110" y="370" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Tokenizer</text>
+<text x="72" y="398" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#8250df" font-weight="600" text-anchor="start" >vocabulary.py · tokenizer.py</text>
+<text x="72" y="424" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Turn DNA text into integer ids, one</text>
+<text x="72" y="444" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >token per base.</text>
+<text x="400" y="368" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">VOCAB</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">[PAD]0 [UNK]1 [BOS]2 [EOS]3 A4 C5 G6 T7 N8</tspan></text>
+<text x="400" y="391" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">build_tokenizer()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">tokenizers pipeline, in order:</tspan></text>
+<text x="418" y="414" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">normalizer</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">a→A … then any other letter → N</tspan></text>
+<text x="418" y="437" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">pre_tokenizer</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">Split(&quot;.&quot;): every base is its own piece</tspan></text>
+<text x="418" y="460" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">WordLevel</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">look each piece up in VOCAB</tspan></text>
+<text x="418" y="483" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">post_processor</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">wrap as [BOS] … [EOS]</tspan></text>
+<text x="418" y="506" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">decoder</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">Fuse: ids back to &quot;ACGT&quot;</tspan></text>
+<text x="400" y="529" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">build_hf_tokenizer()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">PreTrainedTokenizerFast wrapper</tspan></text>
+<rect x="400" y="538" width="610" height="34" rx="8" fill="#fbefff"/>
+<text x="412" y="560" font-size="13.5" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" fill="#1f2328">"acgtR"  <tspan fill="#8250df" font-weight="700">→</tspan>  "ACGTN"  <tspan fill="#8250df" font-weight="700">→</tspan>  A|C|G|T|N  <tspan fill="#8250df" font-weight="700">→</tspan>  [2, 4, 5, 6, 7, 8, 3]</text>
+<rect x="1040" y="352" width="296" height="104" rx="10" fill="#fbefff" stroke="#8250df" stroke-opacity="0.35"/>
+<text x="1056" y="378" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#8250df" font-weight="700" text-anchor="start" >runs/tokenizer/</text>
+<text x="1056" y="402" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >tokenizer.json</text>
+<text x="1056" y="424" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >tokenizer_config.json</text>
+<text x="1056" y="446" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >load: AutoTokenizer</text>
+<text x="1040" y="612" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.tokenizer</text>
+<line x1="700" y1="632" x2="700" y2="652" stroke="#59636e" stroke-width="2"/>
+<path d="M694,648 L700,656 L706,648" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="660" width="1320" height="179" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="660" width="8" height="179" rx="4" fill="#1a7f37"/>
+<circle cx="86" cy="690" r="14" fill="#1a7f37"/>
+<text x="86" y="695" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >3</text>
+<text x="110" y="696" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Dataset</text>
+<text x="72" y="724" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1a7f37" font-weight="600" text-anchor="start" >data.py</text>
+<text x="72" y="750" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Cut chromosomes into training examples</text>
+<text x="72" y="770" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >and tokenize them.</text>
+<text x="400" y="694" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">windows()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">non-overlapping 1,024 bp, uppercased</tspan></text>
+<text x="400" y="717" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">n_fraction()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">drop windows with more than 1% N</tspan></text>
+<text x="400" y="740" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">reverse_complement()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">add the other strand (train only)</tspan></text>
+<text x="400" y="763" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">build_split()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">split by chromosome: train chr22, val chr21</tspan></text>
+<text x="400" y="786" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">tokenize() / build_dataset()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">ids of 1,026 tokens per window</tspan></text>
+<rect x="1040" y="678" width="296" height="104" rx="10" fill="#dafbe1" stroke="#1a7f37" stroke-opacity="0.35"/>
+<text x="1056" y="704" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#1a7f37" font-weight="700" text-anchor="start" >data/processed/</text>
+<text x="1056" y="728" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >train: 68,144 windows</text>
+<text x="1056" y="750" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >validation: 34,269 windows</text>
+<text x="1056" y="772" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >datasets.save_to_disk</text>
+<text x="1040" y="823" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.data</text>
+<line x1="700" y1="843" x2="700" y2="863" stroke="#59636e" stroke-width="2"/>
+<path d="M694,859 L700,867 L706,859" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="871" width="1320" height="179" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="871" width="8" height="179" rx="4" fill="#bc4c00"/>
+<circle cx="86" cy="901" r="14" fill="#bc4c00"/>
+<text x="86" y="906" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >4</text>
+<text x="110" y="907" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Training</text>
+<text x="72" y="935" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#bc4c00" font-weight="600" text-anchor="start" >train.py · configs/tiny.yaml</text>
+<text x="72" y="961" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Teach a small transformer to predict the</text>
+<text x="72" y="981" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >next base.</text>
+<text x="400" y="905" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">build_model()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">LlamaForCausalLM, 6.3M parameters</tspan></text>
+<text x="418" y="928" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >hidden 256 · 6 layers · 8 heads · FFN 1024 · vocab 9→16</text>
+<text x="400" y="951" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">DataCollatorForLanguageModeling</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">mlm=False: labels = inputs</tspan></text>
+<text x="400" y="974" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">Trainer</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">4,000 steps · batch 16 · lr 1e-3 cosine · Apple MPS</tspan></text>
+<text x="400" y="997" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">BitsPerTokenCallback</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">eval loss in bits every 500 steps</tspan></text>
+<rect x="1040" y="889" width="296" height="104" rx="10" fill="#fff1e5" stroke="#bc4c00" stroke-opacity="0.35"/>
+<text x="1056" y="915" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#bc4c00" font-weight="700" text-anchor="start" >runs/tiny/</text>
+<text x="1056" y="939" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >model.safetensors + config</text>
+<text x="1056" y="961" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >tokenizer copy</text>
+<text x="1056" y="983" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >checkpoint-* (last 2)</text>
+<text x="1040" y="1034" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.train</text>
+<line x1="700" y1="1054" x2="700" y2="1074" stroke="#59636e" stroke-width="2"/>
+<path d="M694,1070 L700,1078 L706,1070" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="1082" width="1320" height="179" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="1082" width="8" height="179" rx="4" fill="#0a7c86"/>
+<circle cx="86" cy="1112" r="14" fill="#0a7c86"/>
+<text x="86" y="1117" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >5</text>
+<text x="110" y="1118" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Evaluation</text>
+<text x="72" y="1146" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#0a7c86" font-weight="600" text-anchor="start" >evaluate.py</text>
+<text x="72" y="1172" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Is the model better than simple</text>
+<text x="72" y="1192" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >statistics? Bits per base.</text>
+<text x="400" y="1116" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">to_base_windows()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">validation windows with no N, as 0–3</tspan></text>
+<text x="400" y="1139" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">MarkovModel.fit()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">count k-mers on train, orders 0–10</tspan></text>
+<text x="400" y="1162" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">MarkovModel.bits_per_base()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">add-one smoothed baseline</tspan></text>
+<text x="400" y="1185" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">model_bits_per_base()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">−log2 P(true base), full softmax</tspan></text>
+<text x="400" y="1208" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">metric</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">uniform guess = 2.0 bits, lower is better</tspan></text>
+<rect x="1040" y="1100" width="296" height="104" rx="10" fill="#d9f6f8" stroke="#0a7c86" stroke-opacity="0.35"/>
+<text x="1056" y="1126" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#0a7c86" font-weight="700" text-anchor="start" >eval_results.json</text>
+<text x="1056" y="1150" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >Markov: 1.99 → 1.83 (order 10)</text>
+<text x="1056" y="1172" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >model during training:</text>
+<text x="1056" y="1194" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >1.79 → 1.75 bits/token</text>
+<text x="1040" y="1245" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.evaluate</text>
+<line x1="700" y1="1265" x2="700" y2="1285" stroke="#59636e" stroke-width="2"/>
+<path d="M694,1281 L700,1289 L706,1281" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="1293" width="1320" height="166" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="1293" width="8" height="166" rx="4" fill="#bf3989"/>
+<circle cx="86" cy="1323" r="14" fill="#bf3989"/>
+<text x="86" y="1328" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >6</text>
+<text x="110" y="1329" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Variant scoring</text>
+<text x="72" y="1357" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#bf3989" font-weight="600" text-anchor="start" >score_variant.py</text>
+<text x="72" y="1383" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Zero-shot: how unusual does a</text>
+<text x="72" y="1403" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >single-base change look?</text>
+<text x="400" y="1327" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">reference_window()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">1,024 bp of hg19 around the variant</tspan></text>
+<text x="400" y="1350" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">score_snv()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">check REF matches hg19 (GRCh37, + strand)</tspan></text>
+<text x="400" y="1373" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">per_base_log_probs()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">log P(base | bases before it)</tspan></text>
+<text x="400" y="1396" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">LLR</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">log P(alt window) − log P(ref window)</tspan></text>
+<rect x="1040" y="1311" width="296" height="104" rx="10" fill="#ffeff7" stroke="#bf3989" stroke-opacity="0.35"/>
+<text x="1056" y="1337" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#bf3989" font-weight="700" text-anchor="start" >printed score</text>
+<text x="1056" y="1361" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >LLR over the window</text>
+<text x="1056" y="1383" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >LLR at the variant base</text>
+<text x="1056" y="1405" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >negative = less likely than ref</text>
+<text x="1040" y="1443" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" ></text>
+<text x="72" y="1443" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.score_variant chr22 30000000 C T</text>
+<line x1="700" y1="1463" x2="700" y2="1483" stroke="#59636e" stroke-width="2"/>
+<path d="M694,1479 L700,1487 L706,1479" fill="none" stroke="#59636e" stroke-width="2"/>
+<rect x="40" y="1491" width="1320" height="166" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+<rect x="40" y="1491" width="8" height="166" rx="4" fill="#59636e"/>
+<circle cx="86" cy="1521" r="14" fill="#59636e"/>
+<text x="86" y="1526" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle" >7</text>
+<text x="110" y="1527" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#1f2328" font-weight="700" text-anchor="start" >Publish</text>
+<text x="72" y="1555" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#59636e" font-weight="600" text-anchor="start" >publish.py</text>
+<text x="72" y="1581" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#59636e" font-weight="normal" text-anchor="start" >Share the model with a model card.</text>
+<text x="400" y="1525" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">write_card()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">README.md from the config + eval results</tspan></text>
+<text x="400" y="1548" font-size="14"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700" fill="#1f2328">push()</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">model, tokenizer, card → Hugging Face Hub</tspan></text>
+<rect x="1040" y="1509" width="296" height="104" rx="10" fill="#f6f8fa" stroke="#59636e" stroke-opacity="0.35"/>
+<text x="1056" y="1535" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14.5" fill="#59636e" font-weight="700" text-anchor="start" >Hugging Face Hub</text>
+<text x="1056" y="1559" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >USER/genetic-dna-tiny</text>
+<text x="1056" y="1581" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >only with --push</text>
+<text x="1056" y="1603" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#1f2328" font-weight="normal" text-anchor="start" >(not pushed yet)</text>
+<text x="1040" y="1641" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#59636e" font-weight="normal" text-anchor="start" >python -m genetic_model.publish --push</text>
+<rect x="40" y="1681" width="650" height="92" rx="12" fill="#f6f8fa" stroke="#d1d9e0"/>
+<text x="64" y="1711" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#1f2328" font-weight="700" text-anchor="start" >Shared configuration</text>
+<text x="64" y="1737" font-size="13.5"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700">configs/tiny.yaml</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">data, model and training settings</tspan></text>
+<text x="64" y="1759" font-size="13.5"><tspan font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-weight="700">config.py</tspan><tspan dx="9" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#59636e">load_config(), resolve(): paths relative to model/</tspan></text>
+<rect x="710" y="1681" width="650" height="92" rx="12" fill="#f6f8fa" stroke="#d1d9e0"/>
+<text x="734" y="1711" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#1f2328" font-weight="700" text-anchor="start" >Tests: 57 in tests/  (uv run pytest)</text>
+<text x="734" y="1737" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#59636e" font-weight="normal" text-anchor="start" >tokenizer 33 · data 6 · train 2 · evaluate 6 · score_variant 9 · publish 1</text>
+<text x="734" y="1759" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#59636e" font-weight="normal" text-anchor="start" >Fake FASTA files and untrained models only: no real genetic data</text>
+</svg>
